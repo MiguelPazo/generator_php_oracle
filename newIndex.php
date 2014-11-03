@@ -2,7 +2,29 @@
 
 require 'config/config.php';
 
-$requestURI = explode ( '/', $_SERVER[ 'REQUEST_URI' ] );
+
+$url = $_SERVER[ 'REQUEST_URI' ];
+$arrayParam = array ();
+$indexParam = strpos ( $url, "?" );
+
+if ( $indexParam !== false ) {
+    $params = substr ( $url, $indexParam + 1, strlen ( $url ) );
+    $paramsArray = explode ( "&", $params );
+    $url = substr ( $url, 0, $indexParam );
+    foreach ( $paramsArray as $param ) {
+        $varArray = explode ( "=", $param );
+        if ( count ( $varArray ) == 2 ) {
+            $nom = $varArray[ 0 ];
+            $val = $varArray[ 1 ];
+            ${$nom} = $val;
+            $arrayParam[] = ${$nom};
+        }
+    }
+}
+
+
+
+$requestURI = explode ( '/', $url );
 $iniRouting = 2;
 
 $frontController = array (
@@ -32,11 +54,17 @@ $controller = strtolower ( $frontController[ 'controller' ] );
 $actionCut = explode ( '?', $frontController[ 'action' ] );
 $action = strtolower ( $actionCut[ 0 ] ) . 'Action';
 
+
+
 $requireFile = "modules/$module/" . str_replace ( ' ', '', ucwords ( str_replace ( '-', ' ', $controller ) ) ) . "Controller.php";
+
 //require Controller File
 require "$requireFile";
 
 //instance of Controller File
+
 $className = ucwords ( $module ) . '_' . str_replace ( ' ', '', ucwords ( str_replace ( '-', ' ', $controller ) ) ) . "Controller";
 $controller = new $className();
-$controller->$action ();
+
+call_user_func_array ( array ( $controller, $action ), $arrayParam );
+
