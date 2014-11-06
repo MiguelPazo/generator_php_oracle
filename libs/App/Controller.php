@@ -4,6 +4,11 @@ class App_Controller
 {
 
     private $_params;
+
+    /**
+     *
+     * @var Smarty
+     */
     private $_smarty;
     private $_jscript;
 
@@ -12,7 +17,7 @@ class App_Controller
         $this->_params = $_POST + $_GET + $params;
     }
 
-    public function render ( $template, $layout = 'layout.tpl' ) {
+    public function render ( $template, $withoutLayout = false, $layout = 'layout.tpl' ) {
         $this->_smarty->assign ( '_BASE_URL', BASE_URL );
 
         if ( $this->_jscript ) {
@@ -22,9 +27,13 @@ class App_Controller
         if ( $this->validateAjax () ) {
             $this->_smarty->display ( $template );
         } else {
-            $content = $this->getSmarty ()->fetch ( $template );
-            $this->_smarty->assign ( '_content', $content );
-            $this->_smarty->display ( $layout );
+            if ( $withoutLayout ) {
+                $this->_smarty->display ( $template );
+            } else {
+                $content = $this->getSmarty ()->fetch ( $template );
+                $this->_smarty->assign ( '_content', $content );
+                $this->_smarty->display ( $layout );
+            }
         }
     }
 
@@ -37,11 +46,12 @@ class App_Controller
     }
 
     public function validAccess () {
-        if ( key_exists ( 'userLogin', $_SESSION ) ) {
-            if ( $_SESSION[ 'userLogin' ] != null && $_SESSION[ 'userLogin' ] != '' ) {
-                return true;
-            }
+        $session = new Zend_Session_Namespace ( 'seaAdmin' );
+
+        if ( isset ( $session->usuario ) ) {
+            return true;
         }
+
         return false;
     }
 
