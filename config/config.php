@@ -12,7 +12,7 @@ defined ( 'DOCUMENT_ROOT' ) || define ( 'DOCUMENT_ROOT', realpath ( dirname ( __
 define ( 'DB_SERVER', '(DESCRIPTION=
     (ADDRESS=
       (PROTOCOL=TCP)
-      (HOST=192.168.173.128)
+      (HOST=192.168.1.40)
       (PORT=1521)
     )
     (CONNECT_DATA=
@@ -20,8 +20,9 @@ define ( 'DB_SERVER', '(DESCRIPTION=
       (SERVICE_NAME=XE)
     )
   )' );
-define ( 'DB_USER', 'SEA_FX' );
-define ( 'DB_PASS', 'SEA_FX' );
+define ( 'DB_USER', 'DB' );
+define ( 'DB_PASS', 'PASS' );
+
 
 set_include_path ( implode ( PATH_SEPARATOR, array (
     realpath ( DOCUMENT_ROOT . '/libs' ),
@@ -52,3 +53,5 @@ $smarty->config_dir = DOCUMENT_ROOT . 'templates/config';
 $smarty->caching = false; /* Cambiar a 'true' de ser necesario */
 $smarty->compile_check = true;
 $smarty->debugging = false;
+$smarty->left_delimiter = '#{';
+$smarty->right_delimiter = '}#';

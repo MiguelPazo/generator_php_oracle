@@ -30,9 +30,6 @@ class Index_Controller extends Controller
     }
 
     public function indexAction () {
-        $this->getSmarty ()->left_delimiter = '#{';
-        $this->getSmarty ()->right_delimiter = '}#';
-
         $this->createFirtDirectories ();
 
         $sql_t = "SELECT OBJECT_NAME TABLES FROM ALL_OBJECTS WHERE OBJECT_TYPE = 'TABLE' AND OWNER = '" . DB_USER . "'";
@@ -147,10 +144,10 @@ class Index_Controller extends Controller
 
         $output = $this->getSmarty ()->fetch ( 'Model_Base.tpl' );
 
-        if ( file_put_contents ( $this->_paths[ 'modelBase' ] . 'Base_' . $className . ".php", $output ) )
-            echo "Model_Base_$className => Correcto <br/>";
+        if ( file_put_contents ( $this->_paths[ 'modelBase' ] . $className . ".php", $output ) )
+            echo "Application_Model_Base_$className => Correcto <br/>";
         else
-            echo "Model_Base_$className => Error <br/>";
+            echo "Application_Model_Base_$className => Error <br/>";
     }
 
     public function createFirtDirectories () {

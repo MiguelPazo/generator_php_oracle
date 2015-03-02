@@ -1,7 +1,5 @@
 <?php
 
-require_once 'base/#{$_modelFileBaseName}#.php';
-
 class #{$_modelName}# extends Zend_Db_Table_Abstract
 {
     
