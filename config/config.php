@@ -12,16 +12,15 @@ defined ( 'DOCUMENT_ROOT' ) || define ( 'DOCUMENT_ROOT', realpath ( dirname ( __
 define ( 'DB_SERVER', '(DESCRIPTION=
     (ADDRESS=
       (PROTOCOL=TCP)
-      (HOST=192.168.1.40)
+      (HOST=192.168.49.149)
       (PORT=1521)
     )
     (CONNECT_DATA=
-      (SERVER=dedicated)
-      (SERVICE_NAME=XE)
+      (SERVICE_NAME=BDD3S4)
     )
   )' );
-define ( 'DB_USER', 'DB' );
-define ( 'DB_PASS', 'PASS' );
+define ( 'DB_USER', 'EVA' );
+define ( 'DB_PASS', 'EVA' );
 
 
 set_include_path ( implode ( PATH_SEPARATOR, array (

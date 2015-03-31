@@ -139,7 +139,7 @@ class Index_Controller extends Controller
         $this->getSmarty ()->assign ( "_fields", $fields );
         $this->getSmarty ()->assign ( "_dataArray", substr ( $varData, 0, -2 ) );
         $this->getSmarty ()->assign ( "_table", $table );
-        $this->getSmarty ()->assign ( "_modelName", 'Model_Base_' . $className );
+        $this->getSmarty ()->assign ( "_modelName", 'Model_' . $className );
 
 
         $output = $this->getSmarty ()->fetch ( 'Model_Base.tpl' );
@@ -173,7 +173,7 @@ class Index_Controller extends Controller
         copy ( 'templates/tpl/newPage.tpl', $this->_paths[ 'templates' ] . 'tpl/page.tpl' );
         copy ( 'templates/tpl/newLayout.tpl', $this->_paths[ 'templates' ] . 'tpl/layout.tpl' );
 
-        $this->fullCopy ( 'libs/', $this->_paths[ 'libs' ] );
+//        $this->fullCopy ( 'libs/', $this->_paths[ 'libs' ] );
         $this->fullCopy ( 'config/', $this->_paths[ 'config' ] );
         $this->fullCopy ( 'css/', $this->_paths[ 'css' ] );
         $this->fullCopy ( 'js/', $this->_paths[ 'js' ] );
