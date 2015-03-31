@@ -116,7 +116,7 @@ class Index_Controller extends Controller
         $this->getSmarty ()->assign ( "_queryDate", $queryDate );
         $this->getSmarty ()->assign ( "_noDateFields", $noDateFields );
         $this->getSmarty ()->assign ( "_modelFileBaseName", 'Base_' . $className );
-        $this->getSmarty ()->assign ( "_modelName", 'Model_' . $className );
+        $this->getSmarty ()->assign ( "_modelName", 'Service_' . $className );
         $this->getSmarty ()->assign ( "_modelNameExtends", 'Model_Base_' . $className );
 
         $output = $this->getSmarty ()->fetch ( 'Model.tpl' );
@@ -181,7 +181,7 @@ class Index_Controller extends Controller
     }
 
     public function getClassFormatName ( $table ) {
-        return str_replace ( ' ', '', ucwords ( str_replace ( '_', ' ', strtolower ( $table ) ) ) );
+        return str_replace ( ' ', '', ucwords ( str_replace ( '_', ' ', str_replace('tab_', '', strtolower ( $table )) ) ) );
     }
 
     public function fullCopy ( $source, $target ) {
